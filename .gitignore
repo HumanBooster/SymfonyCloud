@@ -13,3 +13,5 @@
 .buildpath
 .project
 .settings/
+# Fichier backup
+*.php~
