@@ -1,3 +1,4 @@
-app:
-    resource: @AppBundle/Controller/
+hb_blog:
+    resource: "@HBBlogBundle/Controller/"
     type:     annotation
+    prefix:   /
