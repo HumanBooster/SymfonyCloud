@@ -27,25 +27,32 @@ class ArticleController extends Controller
     }
     
     /**
+     * Affiche un formulaire pour ajouter un article
+     *
+     * @Route("/add")
+     * @Template()
+     */
+    public function addAction()
+    {
+    	return array();
+    }
+    
+    /**
 	 * Affiche un article sur un Id
 	 * 
 	 * @Route("/{id}")
 	 * @Template()
 	 */
-	public function readAction()
+	public function readAction($id)
 	{
-		return array();
-	}
-	
-	/**
-	 * Affiche un formulaire pour ajouter un article
-	 *
-	 * @Route("/add")
-	 * @Template()
-	 */
-	public function addAction()
-	{
-		return array();
+		// on récupère le repository de l'Article
+		$repository = $this->getDoctrine()->getRepository("HBBlogBundle:Article");
+		
+		// on demande au repository l'article par l'id
+		$article = $repository->find($id);
+		
+		// on transmet notre article à la vue
+		return array('article' => $article);
 	}
 	
 	/**
@@ -54,7 +61,7 @@ class ArticleController extends Controller
 	 * @Route("/{id}/edit")
 	 * @Template()
 	 */
-	public function editAction()
+	public function editAction($id)
 	{
 		return array();
 	}
@@ -65,7 +72,7 @@ class ArticleController extends Controller
 	 * @Route("/{id}/delete")
 	 * @Template()
 	 */
-	public function deleteAction()
+	public function deleteAction($id)
 	{
 		return array();
 	}
