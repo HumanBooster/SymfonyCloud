@@ -64,6 +64,7 @@ class ArticleController extends Controller
 	 * Affiche un formulaire pour éditer un article sur un Id
 	 *
 	 * @Route("/{id}/edit", name="article_edit")
+	 * @Route("/titre/{titre}/edit")
 	 * @Template("HBBlogBundle:Article:add.html.twig")
 	 */
 	public function editAction(Article $article)
@@ -94,9 +95,14 @@ class ArticleController extends Controller
 				);
 			}
 		}
+		
+		if ($article->getId()>0)
+			$edition = true;
+		else
+			$edition = false;
 		 
 		// passe la vue de formulaire à la vue
-		return array( 'formulaire' => $form->createView() );
+		return array( 'formulaire' => $form->createView(), 'edition' => $edition );
 	}
 	
 	/**
