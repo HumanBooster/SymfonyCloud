@@ -42,6 +42,13 @@ class Article
      */
     private $dateCreation;
 
+    
+    /**
+     * 
+     */
+    public function __construct() {
+    	$this->dateCreation = new \DateTime();
+    }
 
     /**
      * Get id
