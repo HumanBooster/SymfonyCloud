@@ -27,7 +27,6 @@ class ArticleController extends Controller
     {
 		// on récupère le repository de l'Article
 		$repository = $this->getDoctrine()->getRepository("HBBlogBundle:Article");
-		
 		// on demande au repository tous les articles
 		$articles = $repository->findAll();
 
@@ -44,7 +43,8 @@ class ArticleController extends Controller
      */
     public function addAction()
     {
-		return $this->editAction(0);
+    	$article = new Article;
+		return $this->editAction($article);
     }
     
     /**
@@ -53,15 +53,9 @@ class ArticleController extends Controller
 	 * @Route("/{id}", name="article_read")
 	 * @Template()
 	 */
-	public function readAction($id)
+	public function readAction(Article $article)
 	{
-		// on récupère le repository de l'Article
-		$repository = $this->getDoctrine()->getRepository("HBBlogBundle:Article");
-		
-		// on demande au repository l'article par l'id
-		$article = $repository->find($id);
-
-		
+		// on a récupéré l'article grace à un ParamConverter magique
 		// on transmet notre article à la vue
 		return array('article' => $article);
 	}
@@ -72,18 +66,8 @@ class ArticleController extends Controller
 	 * @Route("/{id}/edit", name="article_edit")
 	 * @Template("HBBlogBundle:Article:add.html.twig")
 	 */
-	public function editAction($id)
-	{
-		if ($id>0) {
-			// on récupère le repository de l'Article
-			$repository = $this->getDoctrine()->getRepository("HBBlogBundle:Article");
-			// on demande au repository l'article par l'id
-			$article = $repository->find($id);
-		} else {
-			// on créé un nouvel article (on vient de l'add)
-			$article = new Article();
-		}
-		 
+	public function editAction(Article $article)
+	{		 
 		// on créé un objet formulaire en lui précisant quel Type utiliser
 		$form = $this->createForm(new ArticleType, $article);
 		 
@@ -120,15 +104,11 @@ class ArticleController extends Controller
 	 *
 	 * @Route("/{id}/delete", name="article_delete")
 	 */
-	public function deleteAction($id)
+	public function deleteAction(Article $article)
 	{
-		// on récupère le repository de l'Article
-		$em = $this->getDoctrine()->getManager();
-		
-		// on demande au repository l'article par l'id
-		$article = $em->getRepository("HBBlogBundle:Article")->find($id);
-		
+		// on a récupéré l'article grace à un ParamConverter magique
 		// on demande à l'entity manager de supprimer l'article
+		$em = $this->getDoctrine()->getEntityManager();
 		$em->remove($article);
 		$em->flush();
 	
