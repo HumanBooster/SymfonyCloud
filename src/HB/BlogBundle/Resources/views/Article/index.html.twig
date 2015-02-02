@@ -3,5 +3,18 @@
 {% block body %}
 <h2>Liste des articles</h2>
 
+{% for article in articles %}
+	{% if loop.first %}
+	<ul>
+	{% endif %}
+		<li><a href="{{ path('article_read',{'id':article.id}) }}">
+			{{ article.titre }}</a>
+		</li>
+	{% if loop.last %}
+	</ul>
+	{% endif %}
+{% else %}
+	<p>Aucun article.</p>
+{% endfor %}
 
 {% endblock %}

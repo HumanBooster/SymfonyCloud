@@ -23,7 +23,15 @@ class ArticleController extends Controller
      */
     public function indexAction()
     {
-        return array();
+		// on récupère le repository de l'Article
+		$repository = $this->getDoctrine()->getRepository("HBBlogBundle:Article");
+		
+		// on demande au repository tous les articles
+		$articles = $repository->findAll();
+
+		
+		// on transmet la liste à la vue
+		return array('articles' => $articles);
     }
     
     /**
@@ -40,7 +48,7 @@ class ArticleController extends Controller
     /**
 	 * Affiche un article sur un Id
 	 * 
-	 * @Route("/{id}")
+	 * @Route("/{id}", name="article_read")
 	 * @Template()
 	 */
 	public function readAction($id)
@@ -50,6 +58,7 @@ class ArticleController extends Controller
 		
 		// on demande au repository l'article par l'id
 		$article = $repository->find($id);
+
 		
 		// on transmet notre article à la vue
 		return array('article' => $article);
