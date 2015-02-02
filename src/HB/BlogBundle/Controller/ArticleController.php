@@ -83,8 +83,6 @@ class ArticleController extends Controller
 			// on créé un nouvel article (on vient de l'add)
 			$article = new Article();
 		}
-		
-		$article = new Article();
 		 
 		// on créé un objet formulaire en lui précisant quel Type utiliser
 		$form = $this->createForm(new ArticleType, $article);

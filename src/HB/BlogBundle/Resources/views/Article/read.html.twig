@@ -7,7 +7,9 @@
 
 <p>{{ article.contenu }}</p>
 
-
+<p><a href="{{ path('article_list') }}">Retour à la liste</a></p>
+<p><a href="{{ path('article_edit',{'id':article.id}) }}">éditer</a>
+- <a href="{{ path('article_delete',{'id':article.id}) }}">supprimer</a></p>
 
 
 {% endblock %}
