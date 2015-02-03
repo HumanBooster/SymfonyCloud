@@ -123,4 +123,21 @@ class ArticleController extends Controller
 				$this->generateUrl('article_list')
 		);
 	}
+	
+	/**
+	 * Affiche l'auteur d'un article
+	 * 
+	 * @param Article $article
+	 * 
+	 * @Route("/{id}/auteur", name="article_auteur")
+	 */
+	public function readAuteurAction(Article $article) {
+		if ($article->getAuteur()!=null) {
+			return $this->redirect(
+				$this->generateUrl('utilisateur_read', array('id' => $article->getAuteur()->getId()))
+			);
+		} else {
+			throw new \Exception("Auteur invalide.");
+		}
+	}
 }
