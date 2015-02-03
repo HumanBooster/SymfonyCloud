@@ -45,13 +45,13 @@ class Article
     /**
      * @var Utilisateur
      * 
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\ManyToOne(targetEntity="Utilisateur", inversedBy="articles")
      */
     private $auteur;
 
     
     /**
-     * 
+     * Constructeur de Article
      */
     public function __construct() {
     	$this->dateCreation = new \DateTime();

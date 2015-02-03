@@ -3,6 +3,7 @@
 namespace HB\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Utilisateur
@@ -48,6 +49,13 @@ class Utilisateur
      * @ORM\Column(name="dateCreation", type="datetime")
      */
     private $dateCreation;
+    
+    /**
+     * @var Collection
+     * 
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="auteur")
+     */
+    private $articles;
 
 
     /**
@@ -150,5 +158,48 @@ class Utilisateur
     public function getDateCreation()
     {
         return $this->dateCreation;
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->dateCreation = new \DateTime();
+    }
+
+    /**
+     * Add article
+     *
+     * @param \HB\BlogBundle\Entity\Article $article
+     * @return Utilisateur
+     */
+    public function addArticle(\HB\BlogBundle\Entity\Article $article)
+    {
+    	$article->setAuteur($this);
+        $this->articles[] = $article;
+
+        return $this;
+    }
+
+    /**
+     * Remove article
+     *
+     * @param \HB\BlogBundle\Entity\Article $article
+     */
+    public function removeArticle(\HB\BlogBundle\Entity\Article $article)
+    {
+        $this->articles->removeElement($article);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticles()
+    {
+        return $this->articles;
     }
 }
