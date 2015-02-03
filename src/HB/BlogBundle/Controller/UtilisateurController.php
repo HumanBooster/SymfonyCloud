@@ -123,4 +123,18 @@ class UtilisateurController extends Controller
 				$this->generateUrl('utilisateur_list')
 		);
 	}
+	
+	/**
+	 * Liste les articles d'un utilisateur
+	 * 
+	 * @Route("/{id}/articles", name="utilisateur_articles")
+	 * @Template()
+	 *
+	 */
+	public function listArticlesAction(Utilisateur $utilisateur)
+	{
+		return array('utilisateur' => $utilisateur,
+					 'articles' => $utilisateur->getArticles()
+		);
+	}
 }

@@ -54,6 +54,7 @@ class Utilisateur
      * @var Collection
      * 
      * @ORM\OneToMany(targetEntity="Article", mappedBy="auteur")
+     * @ORM\OrderBy({"dateCreation" = "DESC"})
      */
     private $articles;
 

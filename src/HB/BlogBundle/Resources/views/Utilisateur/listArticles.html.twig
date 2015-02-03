@@ -1,0 +1,22 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<h2>Liste des articles de {{ utilisateur.login }}</h2>
+
+{% for article in articles %}
+	{% if loop.first %}<ul>{% endif %}
+	
+		<li><a href="{{ path('article_read',{'id':article.id}) }}">
+			{{ article.titre }}</a>
+			- <a href="{{ path('article_edit',{'id':article.id}) }}">éditer</a>
+			- <a href="{{ path('article_delete',{'id':article.id}) }}">supprimer</a>
+		</li>
+	
+	{% if loop.last %}</ul>{% endif %}
+{% else %}
+	<p>Aucun article.</p>
+{% endfor %}
+
+<p><a href="{{ path('utilisateur_list') }}">Retour à la liste des utilisateurs</a></p>
+
+{% endblock %}

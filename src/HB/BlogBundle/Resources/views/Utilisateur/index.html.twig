@@ -10,6 +10,7 @@
 			{{ utilisateur.login }}</a>
 			- <a href="{{ path('utilisateur_edit',{'id':utilisateur.id}) }}">éditer</a>
 			- <a href="{{ path('utilisateur_delete',{'id':utilisateur.id}) }}">supprimer</a>
+			- <a href="{{ path('utilisateur_articles', {'id':utilisateur.id}) }}">voir les articles</a>
 		</li>
 	
 	{% if loop.last %}</ul>{% endif %}
