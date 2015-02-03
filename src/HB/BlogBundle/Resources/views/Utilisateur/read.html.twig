@@ -1,0 +1,15 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<h2>Affichage de l'utilisateur {{ utilisateur.id }}</h2>
+
+<h1>{{ utilisateur.login }}</h1>
+
+<p>{{ utilisateur.nom }}</p>
+
+<p><a href="{{ path('utilisateur_list') }}">Retour à la liste</a></p>
+<p><a href="{{ path('utilisateur_edit',{'id':utilisateur.id}) }}">éditer</a>
+- <a href="{{ path('utilisateur_delete',{'id':utilisateur.id}) }}">supprimer</a></p>
+
+
+{% endblock %}

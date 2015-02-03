@@ -1,0 +1,8 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<h2>{%  if edition %}Edition{% else %}Création{% endif %} d'un utilisateur</h2>
+
+{{ form(formulaire) }}
+
+{% endblock %}

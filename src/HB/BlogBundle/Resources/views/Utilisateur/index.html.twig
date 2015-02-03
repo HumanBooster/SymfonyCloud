@@ -1,0 +1,22 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<h2>Liste des utilisateurs</h2>
+
+{% for utilisateur in utilisateurs %}
+	{% if loop.first %}<ul>{% endif %}
+	
+		<li><a href="{{ path('utilisateur_read',{'id':utilisateur.id}) }}">
+			{{ utilisateur.login }}</a>
+			- <a href="{{ path('utilisateur_edit',{'id':utilisateur.id}) }}">éditer</a>
+			- <a href="{{ path('utilisateur_delete',{'id':utilisateur.id}) }}">supprimer</a>
+		</li>
+	
+	{% if loop.last %}</ul>{% endif %}
+{% else %}
+	<p>Aucun utilisateur.</p>
+{% endfor %}
+
+<p><a href="{{ path('utilisateur_add') }}">Ajouter un utilisateur</a></p>
+
+{% endblock %}
