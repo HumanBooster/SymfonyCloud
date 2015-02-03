@@ -41,6 +41,13 @@ class Article
      * @ORM\Column(name="date_creation", type="datetime")
      */
     private $dateCreation;
+    
+    /**
+     * @var Utilisateur
+     * 
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     */
+    private $auteur;
 
     
     /**
@@ -127,5 +134,28 @@ class Article
     public function getDateCreation()
     {
         return $this->dateCreation;
+    }
+
+    /**
+     * Set auteur
+     *
+     * @param \HB\BlogBundle\Entity\Utilisateur $auteur
+     * @return Article
+     */
+    public function setAuteur(\HB\BlogBundle\Entity\Utilisateur $auteur = null)
+    {
+        $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    /**
+     * Get auteur
+     *
+     * @return \HB\BlogBundle\Entity\Utilisateur 
+     */
+    public function getAuteur()
+    {
+        return $this->auteur;
     }
 }
