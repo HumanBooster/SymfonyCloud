@@ -1,0 +1,7 @@
+{% for article in articles %}
+	{% if loop.first %}<ul>{% endif %}
+		<li>{% include "HBBlogBundle:Article:articleDetails.html.twig" %}</li>
+	{% if loop.last %}</ul>{% endif %}
+{% else %}
+	<p>Aucun article.</p>
+{% endfor %}

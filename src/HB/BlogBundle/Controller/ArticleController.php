@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use HB\BlogBundle\Entity\Article;
 use HB\BlogBundle\Form\ArticleType;
 
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
+
 /**
  * Controleur de l'entité Article
  * 
@@ -137,7 +139,7 @@ class ArticleController extends Controller
 				$this->generateUrl('utilisateur_read', array('id' => $article->getAuteur()->getId()))
 			);
 		} else {
-			throw new \Exception("Auteur invalide.");
+			throw new NotFoundResourceException("Auteur invalide.");
 		}
 	}
 }
