@@ -46,6 +46,7 @@ class Article
      * @var Utilisateur
      * 
      * @ORM\ManyToOne(targetEntity="Utilisateur", inversedBy="articles")
+     * @ORM\JoinColumn(onDelete = "SET NULL")
      */
     private $auteur;
 
