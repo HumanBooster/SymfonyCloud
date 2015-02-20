@@ -30,10 +30,14 @@ class WsArticleController extends Controller
 	 * Et qui renvoie un objet de la classe Article
 	 * @Soap\Result(phpType = "HB\BlogBundle\Entity\Article")
 	 */
-	public function getArticleAction(Article $article)
+	public function getArticleAction($id)
 	{
-		// on a récupéré l'article grace à un ParamConverter magique
+		// on récupère le repository de l'Article
+		$repository = $this->getDoctrine()->getRepository("HBBlogBundle:Article");
+		$article = $repository->find($id);
 		// on transmet notre article à la vue
+		if ($article == null)
+			throw new \SoapFault("Sender", "No article found");
 		return $article;
 	}
 	
@@ -52,7 +56,8 @@ class WsArticleController extends Controller
 		// on demande au repository tous les articles
 		$articles = $repository->findAll();
 
-		
+		if ($articles == null)
+			throw new \SoapFault("Receiver", "No article found");
 		// on transmet la liste à la vue
 		return $articles;
     }
@@ -66,6 +71,8 @@ class WsArticleController extends Controller
      */
     public function putArticleAction(Article $article)
     {
+    	if ($article == null)
+    		throw new \SoapFault("Sender", "Invalid data");
     	/* on regarde si on a un article existant add/edit */
     	$em = $this->getDoctrine()->getManager();
     	
@@ -94,9 +101,14 @@ class WsArticleController extends Controller
 	 * @Soap\Param("id", phpType = "int")
 	 * @Soap\Result(phpType = "boolean")
 	 */
-	public function deleteArticleAction(Article $article)
+	public function deleteArticleAction($id)
 	{
-		// on a récupéré l'article grace à un ParamConverter magique
+				// on récupère le repository de l'Article
+		$repository = $this->getDoctrine()->getRepository("HBBlogBundle:Article");
+		$article = $repository->find($id);
+		// on transmet notre article à la vue
+		if ($article == null)
+			throw new \SoapFault("Sender", "No article found");
 		// on demande à l'entity manager de supprimer l'article
 		$em = $this->getDoctrine()->getManager();
 		$em->remove($article);
