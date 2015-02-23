@@ -28,15 +28,18 @@ class ArticleController extends Controller
     public function indexAction()
     {
 		// on récupère le repository de l'Article
-		$repository = $this->getDoctrine()->getRepository("HBBlogBundle:Article");
+		/*$repository = $this->getDoctrine()->getRepository("HBBlogBundle:Article");
 		// on demande au repository tous les articles
-		$articles = $repository->findAll();
+		$articles = $repository->findAll();*/
 
+		$client = $this->container->get('besimple.soap.client.blogapi');
+		$articles = $client->getArticles();
 		
+		//print_r($articles);
 		// on transmet la liste à la vue
-		return array('articles' => $articles);
+		return array('articles' => $articles->item);
     }
-    
+
     /**
      * Affiche un formulaire pour ajouter un article
      *
@@ -45,8 +48,7 @@ class ArticleController extends Controller
      */
     public function addAction()
     {
-    	$article = new Article;
-		return $this->editAction($article);
+		return $this->editAction(0);
     }
     
     /**
@@ -55,9 +57,11 @@ class ArticleController extends Controller
 	 * @Route("/{id}", name="article_read")
 	 * @Template()
 	 */
-	public function readAction(Article $article)
+	public function readAction($id)
 	{
-		// on a récupéré l'article grace à un ParamConverter magique
+		$client = $this->container->get('besimple.soap.client.blogapi');
+		$article = $client->getArticle($id);
+		
 		// on transmet notre article à la vue
 		return array('article' => $article);
 	}
@@ -69,8 +73,16 @@ class ArticleController extends Controller
 	 * @Route("/titre/{titre}/edit")
 	 * @Template("HBBlogBundle:Article:add.html.twig")
 	 */
-	public function editAction(Article $article)
-	{		 
+	public function editAction($id)
+	{	
+		$client = $this->container->get('besimple.soap.client.blogapi');
+	
+		if ($id > 0) {		
+			$article = $client->getArticle($id);
+		} else {
+			$article = new Article();
+		}
+		
 		// on créé un objet formulaire en lui précisant quel Type utiliser
 		$form = $this->createForm(new ArticleType, $article);
 		 
@@ -87,9 +99,7 @@ class ArticleController extends Controller
 			// (Nous verrons la validation des objets en détail dans le prochain chapitre)
 			if ($form->isValid()) {
 				// On l'enregistre notre objet $article dans la base de données
-				$em = $this->getDoctrine()->getManager();
-				$em->persist($article);
-				$em->flush();
+				$client->putArticle($article);
 				 
 				// On redirige vers la page de visualisation de l'article nouvellement créé
 				return $this->redirect(
@@ -112,13 +122,12 @@ class ArticleController extends Controller
 	 *
 	 * @Route("/{id}/delete", name="article_delete")
 	 */
-	public function deleteAction(Article $article)
+	public function deleteAction($id)
 	{
 		// on a récupéré l'article grace à un ParamConverter magique
 		// on demande à l'entity manager de supprimer l'article
-		$em = $this->getDoctrine()->getEntityManager();
-		$em->remove($article);
-		$em->flush();
+		$client = $this->container->get('besimple.soap.client.blogapi');
+		$client->deleteArticle($id);
 	
 		// On redirige vers la page de liste des articles
 		return $this->redirect(

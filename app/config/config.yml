@@ -77,9 +77,10 @@ be_simple_soap:
         type:     disk
         lifetime: 86400
         limit:    5
-    services:
+    clients:
         BlogApi:
-            namespace:     http://sfcloud.local/ws/BlogApi/1.0/
-            binding:       rpc-literal
-            resource:      "@HBBlogBundle/Controller/WsArticleController.php"
-            resource_type: annotation
+            wsdl:     http://sfcloud.ws/ws/BlogApi?WSDL
+            classmap:
+                Article: HB\BlogBundle\Entity\Article
+
+

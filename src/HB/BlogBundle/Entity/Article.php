@@ -9,7 +9,7 @@ use BeSimple\SoapBundle\ServiceDefinition\Annotation as Soap;
  * Article
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="HB\BlogBundle\Entity\ArticleRepository")
+ * @ORM\Entity()
  * @Soap\Alias("Article")
  */
 class Article
