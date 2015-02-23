@@ -18,16 +18,16 @@ class ArticleType extends AbstractType
             ->add('titre')
             ->add('contenu')
             //->add('dateCreation')
-            ->add('auteur', 'entity', array(
+            /*->add('auteur', 'entity', array(
 					  'class'        => 'HBBlogBundle:Utilisateur',
 					  'property'     => 'login',
             		  'expanded'	=> true,
             		  'required'    => false,
             		  'empty_value' => "aucun",
-            		  /*'query_builder' => function(\HB\BlogBundle\Entity\UtilisateurRepository $r) {
+            		  'query_builder' => function(\HB\BlogBundle\Entity\UtilisateurRepository $r) {
             				return $r->getSelectList();
-            			}*/
-            ))
+            			}
+            )) */
             ->add('Créer', 'submit')
         ;
     }

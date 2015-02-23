@@ -2,57 +2,33 @@
 
 namespace HB\BlogBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use BeSimple\SoapBundle\ServiceDefinition\Annotation as Soap;
-
 /**
  * Article
- *
- * @ORM\Table()
- * @ORM\Entity()
- * @Soap\Alias("Article")
  */
 class Article
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @Soap\ComplexType("int", nillable=true)
      */
     private $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="titre", type="string", length=255)
-     * @Soap\ComplexType("string")
      */
     private $titre;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="contenu", type="text", nullable=true)
-     * @Soap\ComplexType("string")
      */
     private $contenu;
     
     /**
      * @var \DateTime
-     * 
-     * @ORM\Column(name="date_creation", type="datetime")
-     * @Soap\ComplexType("dateTime", nillable=true)
      */
     private $dateCreation;
     
     /**
      * @var Utilisateur
-     * 
-     * @ORM\ManyToOne(targetEntity="Utilisateur", inversedBy="articles")
-     * @ORM\JoinColumn(onDelete = "SET NULL")
      */
     private $auteur;
 
